@@ -1,4 +1,5 @@
 <?php
+
 namespace Elastica;
 
 use Elastica\Exception\InvalidException;
@@ -10,7 +11,7 @@ use Elastica\Exception\InvalidException;
  *
  * @author Nicolas Ruflin <spam@ruflin.com>
  */
-class Param implements ArrayableInterface
+class Param implements ArrayableInterface, \Countable
 {
     /**
      * Params.
@@ -161,7 +162,7 @@ class Param implements ArrayableInterface
     public function getParam($key)
     {
         if (!$this->hasParam($key)) {
-            throw new InvalidException('Param '.$key.' does not exist');
+            throw new InvalidException('Param ' . $key . ' does not exist');
         }
 
         return $this->_params[$key];
@@ -187,5 +188,20 @@ class Param implements ArrayableInterface
     public function getParams()
     {
         return $this->_params;
+    }
+
+    /**
+     * Count elements of an object
+     *
+     * @link  http://php.net/manual/en/countable.count.php
+     * @return int The custom count as an integer.
+     * </p>
+     * <p>
+     * The return value is cast to an integer.
+     * @since 5.1.0
+     */
+    public function count()
+    {
+        return count($this->toArray());
     }
 }
